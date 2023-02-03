@@ -26,6 +26,37 @@ public class MemoryRepository : IRepository
         }
     }
 
+    public InputRecord? LoadInput(string id, IRepository.Side side)
+    {
+       switch (side)
+        {
+            case IRepository.Side.Left:
+            {
+                return this.Load(LeftInputs, id);
+            }
+
+            case IRepository.Side.Right:
+            {
+                return this.Load(RightInputs, id);
+            }
+
+            default:
+            {
+                throw new InvalidOperationException("Unsupported 'Side'");
+            }
+        }        
+    }
+
+    private InputRecord? Load(Dictionary<string, string> inputs, string id)
+    {
+        if (!inputs.TryGetValue(id, out string? input))
+        {
+            return null;
+        }
+
+        return new InputRecord(id, input);
+    }
+
     private void Store(Dictionary<string, string> inputs, InputRecord inputRecord)
     {
         lock (inputs)
