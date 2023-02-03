@@ -4,7 +4,7 @@ namespace diffApiTest;
 public class MemoryRepositoryTest
 {
     // DataRow doesn't support enumeration values, known bug since 2018 :( 
-        
+
     [TestMethod]
     [DataRow(0)] // IRepository.Side.Left
     [DataRow(1)] // IRepository.Side.Right
@@ -17,7 +17,7 @@ public class MemoryRepositoryTest
         
         memoryRepository.StoreInput(side, inputRecord);
 
-        var savedInputRecord = memoryRepository.LoadInput("1", side);
+        var savedInputRecord = memoryRepository.LoadInput(side, "1");
 
         Assert.AreEqual(inputRecord, savedInputRecord);
     }

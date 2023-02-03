@@ -1,72 +1,36 @@
 public class MemoryRepository : IRepository
 {
-    readonly Dictionary<string, string> LeftInputs = new Dictionary<string, string>();
-    readonly Dictionary<string, string> RightInputs = new Dictionary<string, string>();
+    readonly Dictionary<string, string> inputs = new Dictionary<string, string>();
+
+    string GetKey(IRepository.Side side, string id)
+    {
+        return $"{side}/id";
+    }
 
     public void StoreInput(IRepository.Side side, InputRecord inputRecord)
     {
-        switch (side)
-        {
-            case IRepository.Side.Left:
-            {
-                this.Store(LeftInputs, inputRecord);
-                break;
-            }
+        var key = GetKey(side, inputRecord.id);
 
-            case IRepository.Side.Right:
-            {
-                this.Store(RightInputs, inputRecord);
-                break;
-            }
-
-            default:
-            {
-                throw new InvalidOperationException("Unsupported 'Side'");
-            }
-        }
-    }
-
-    public InputRecord? LoadInput(string id, IRepository.Side side)
-    {
-       switch (side)
-        {
-            case IRepository.Side.Left:
-            {
-                return this.Load(LeftInputs, id);
-            }
-
-            case IRepository.Side.Right:
-            {
-                return this.Load(RightInputs, id);
-            }
-
-            default:
-            {
-                throw new InvalidOperationException("Unsupported 'Side'");
-            }
-        }        
-    }
-
-    private InputRecord? Load(Dictionary<string, string> inputs, string id)
-    {
-        if (!inputs.TryGetValue(id, out string? input))
-        {
-            return null;
-        }
-
-        return new InputRecord(id, input);
-    }
-
-    private void Store(Dictionary<string, string> inputs, InputRecord inputRecord)
-    {
         lock (inputs)
         {
-            if (inputs.ContainsKey(inputRecord.id))
+            if (inputs.ContainsKey(key))
             {
                 throw new DuplicateInputException();
             }
 
-            inputs.Add(inputRecord.id, inputRecord.input);
+            inputs.Add(key, inputRecord.input);
         }
+    }
+
+    public InputRecord? LoadInput(IRepository.Side side, string id)
+    {
+        var key = GetKey(side, id);
+
+        if (!inputs.TryGetValue(key, out string? input))
+        {
+            return null;
+        }
+
+        return new InputRecord(id, input);       
     }
 }
