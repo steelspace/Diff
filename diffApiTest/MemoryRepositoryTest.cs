@@ -10,7 +10,7 @@ public class MemoryRepositoryTest
     [DataRow(1)] // IRepository.Side.Right
     public void InputIsStored(int s)
     {
-        var side = (IRepository.Side)s;
+        var side = (Side)s;
 
         var memoryRepository = new MemoryRepository();
         var inputRecord = new InputRecord("1", "test-input");
@@ -28,7 +28,7 @@ public class MemoryRepositoryTest
     [ExpectedException(typeof(DuplicateInputException))]
     public void ConflictIsThrownWhenDuplicateInputIsStored(int s)
     {
-        var side = (IRepository.Side)s;
+        var side = (Side)s;
         
         var memoryRepository = new MemoryRepository();
         var inputRecord = new InputRecord("1", "test-input");

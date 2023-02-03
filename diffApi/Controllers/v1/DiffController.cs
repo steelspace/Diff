@@ -6,12 +6,10 @@ namespace diffApi.Controllers;
 [ApiVersion("1.0")]
 public class DiffController : ControllerBase
 {
-    private readonly ILogger<DiffController> logger;
     private readonly IDiffService diffService;
 
-    public DiffController(ILogger<DiffController> logger, IDiffService diffService)
+    public DiffController(IDiffService diffService)
     {
-        this.logger = logger;
         this.diffService = diffService;
     }
 
@@ -20,6 +18,7 @@ public class DiffController : ControllerBase
     [MapToApiVersion("1.0")]
     public string Diff(string id)
     {
+        // add cache control for client, because of immutability can't be different
         return id;
     }
 
@@ -31,7 +30,7 @@ public class DiffController : ControllerBase
         try
         {
             var inputRecord = new InputRecord(id, input.input);
-            diffService.StoreLeftInputData(inputRecord);
+            diffService.StoreInputData(Side.Left, inputRecord);
             return Ok();
         }
 
@@ -49,7 +48,7 @@ public class DiffController : ControllerBase
         try
         {
             var inputRecord = new InputRecord(id, input.input);
-            diffService.StoreRightInputData(inputRecord);
+            diffService.StoreInputData(Side.Right, inputRecord);
             return Ok();
         }
 

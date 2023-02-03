@@ -4,13 +4,8 @@ public class DiffService : IDiffService
 
     public DiffService(IRepository repository) => this.repository = repository;
 
-    public void StoreLeftInputData(InputRecord inputRecord)
+    public void StoreInputData(Side side, InputRecord inputRecord)
     {
-        repository.StoreInput(IRepository.Side.Left, inputRecord);
-    }
-
-    public void StoreRightInputData(InputRecord inputRecord)
-    {
-        repository.StoreInput(IRepository.Side.Right, inputRecord);
+        repository.StoreInput(side, inputRecord);
     }
 }

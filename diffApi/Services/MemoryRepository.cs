@@ -2,12 +2,12 @@ public class MemoryRepository : IRepository
 {
     readonly Dictionary<string, string> inputs = new Dictionary<string, string>();
 
-    string GetKey(IRepository.Side side, string id)
+    string GetKey(Side side, string id)
     {
         return $"{side}/id";
     }
 
-    public void StoreInput(IRepository.Side side, InputRecord inputRecord)
+    public void StoreInput(Side side, InputRecord inputRecord)
     {
         var key = GetKey(side, inputRecord.id);
 
@@ -22,7 +22,7 @@ public class MemoryRepository : IRepository
         }
     }
 
-    public InputRecord? LoadInput(IRepository.Side side, string id)
+    public InputRecord? LoadInput(Side side, string id)
     {
         var key = GetKey(side, id);
 

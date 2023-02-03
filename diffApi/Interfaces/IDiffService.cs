@@ -1,5 +1,4 @@
 public interface IDiffService
 {
-    void StoreLeftInputData(InputRecord input);
-    void StoreRightInputData(InputRecord input);
+    void StoreInputData(Side side, InputRecord inputRecord);
 }
