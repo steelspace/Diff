@@ -1,0 +1,1 @@
+public record InputRecord (string id, string input);
