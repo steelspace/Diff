@@ -35,5 +35,16 @@ public class MemoryRepositoryTest
         
         memoryRepository.StoreInput(inputRecord);
         memoryRepository.StoreInput(inputRecord);
-    }    
+    }   
+
+    [TestMethod]
+    public void ValueForDifferentIdIsStored()
+    {
+        var memoryRepository = new MemoryRepository();
+        var inputRecord = new InputRecord("1", Side.Left, "test-input");
+        var inputRecord2 = new InputRecord("2", Side.Left, "test-input");
+        
+        memoryRepository.StoreInput(inputRecord);
+        memoryRepository.StoreInput(inputRecord2);
+    }        
 }

@@ -66,6 +66,49 @@ There is an integration test in `diffApiIntegrationTest`. It requires the web ap
 Integration test can be executed only once while the web api is running because posting records with the same id causes HTTP conflict error. Ideally with .NET 7, it can be rewritten to memory hosting.
 Integration test tests only the happy path.
 
+## Manual Test
+When running the API locally, go to https://localhost:7232/swagger to play with the API in generated client. Since Swagger can't understand the custom formatter for content types, the body for `POST` endpoints must be converted to base64, rather than plain as Swagger suggests.
+
+```BASH
+# left value for 999 is {"input":"testValue"}
+curl -X 'POST' \
+  'https://localhost:7232/v1/Diff/999/left' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/custom' \
+  -d 'eyJpbnB1dCI6InRlc3RWYWx1ZSJ9'
+
+# right value for 999 is {"input":"tesXYalue"}
+curl -X 'POST' \
+  'https://localhost:7232/v1/Diff/999/right' \
+  -H 'accept: */*' \
+  -H 'Content-Type: application/custom' \
+  -d 'eyJpbnB1dCI6InRlc1hZYWx1ZSJ9'
+
+## result
+curl -X 'GET' \
+  'https://localhost:7232/v1/Diff/999' \
+  -H 'accept: */*'
+```
+
+```JSON
+{
+  "id": "999",
+  "description": "",
+  "differences": [
+    {
+      "index": 3,
+      "leftCharacter": "t",
+      "rightCharacter": "X"
+    },
+    {
+      "index": 4,
+      "leftCharacter": "V",
+      "rightCharacter": "Y"
+    }
+  ]
+}
+```
+
 ## Limitation
 - Only naive storage implementation is provided, interface allows to upgrade to the proper solution without changing the service and controller. In memory storage is great for testing locally without any dependencies.
 - All cross-cutting concerns are omitted (atuhentication, authorization, logging, telemetry, perf tests etc.)

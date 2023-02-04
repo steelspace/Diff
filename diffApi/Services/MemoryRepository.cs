@@ -4,7 +4,7 @@ public class MemoryRepository : IRepository
 
     string GetKey(Side side, string id)
     {
-        return $"{side}/id";
+        return $"{side}/{id}";
     }
 
     public void StoreInput(InputRecord inputRecord)
