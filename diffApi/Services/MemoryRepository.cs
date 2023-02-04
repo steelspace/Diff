@@ -13,11 +13,6 @@ public class MemoryRepository : IRepository
 
         lock (inputs)
         {
-            if (inputs.ContainsKey(key))
-            {
-                throw new DuplicateInputException();
-            }
-
             inputs.Add(key, inputRecord.input);
         }
     }

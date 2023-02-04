@@ -1,0 +1,1 @@
+public record Diff(int index, char leftCharacter, char rightCharacter);
