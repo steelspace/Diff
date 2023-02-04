@@ -16,7 +16,7 @@ public class DiffController : ControllerBase
     [HttpGet]
     [Route("{id}")]
     [MapToApiVersion("1.0")]
-    [ResponseCache(Location = ResponseCacheLocation.Any)]
+    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 3600)]
     public IActionResult Diff(string id)
     {
         // added cache control - because of immutability this resource is constant
