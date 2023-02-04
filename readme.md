@@ -60,3 +60,6 @@ I decided to output all found differences with offsets and diffed characters so 
 1. I prefer unit tests to be verbose and de-normalized, so they can be read as a use-case description without referring to various utility functions
 2. `[DataRow()]` attribute has a bug that doesn't where it doesn't support enum values, the solution would be use more sophisticated test framework such as *xUnit*
 
+## Limitation
+- Only naive storage implementation is provided, interface allows to upgrade to the proper solution without changing the service and controller. In memory storage is great for testing locally without any dependencies.
+- All cross-cutting concerns are omitted (atuhentication, authorization, logging, telemetry etc.)

@@ -1,3 +1,5 @@
+using Moq;
+
 namespace diffApiTest;
 
 [TestClass]
@@ -11,7 +13,11 @@ public class DiffServiceTest
     {
         var side = (Side)s;
 
-        var diffService = new DiffService(new RepositoryMock());
+        var repositoryMock = new Mock<IRepository>();
+        repositoryMock.Setup(r => r.LoadInput(It.IsAny<Side>(), It.IsAny<string>()))
+            .Returns(new InputRecord("1", "TEST-INPUT"));
+
+        var diffService = new DiffService(repositoryMock.Object);
         var inputRecord = new InputRecord("1", "test-input");
         
         // return is void, so testing just for possible sideeffects
@@ -26,7 +32,11 @@ public class DiffServiceTest
     {
         var side = (Side)s;
         
-        var diffService = new DiffService(new RepositoryDuplicateMock());
+        var repositoryMock = new Mock<IRepository>();
+        repositoryMock.Setup(r => r.StoreInput(It.IsAny<Side>(), It.IsAny<InputRecord>()))
+        .Throws(new ArgumentException());
+
+        var diffService = new DiffService(repositoryMock.Object);
         var inputRecord = new InputRecord("1", "test-input");
         
         diffService.StoreInputData(side, inputRecord);
@@ -55,7 +65,11 @@ public class DiffServiceTest
     [TestMethod]
     public void ReturnSameInputsResult()
     {
-        var diffService = new DiffService(new RepositorySameInputsMock());
+        var repositoryMock = new Mock<IRepository>();
+        repositoryMock.Setup(r => r.LoadInput(It.IsAny<Side>(), It.IsAny<string>()))
+            .Returns(new InputRecord("1", "TEST-INPUT"));
+
+        var diffService = new DiffService(repositoryMock.Object);
         
         var diffResult = diffService.GetDiff("1");
 
