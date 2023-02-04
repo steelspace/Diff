@@ -111,7 +111,7 @@ curl -X 'GET' \
 
 ## Limitation
 - Only naive storage implementation is provided, interface allows to upgrade to the proper solution without changing the service and controller. In memory storage is great for testing locally without any dependencies.
-- All cross-cutting concerns are omitted (atuhentication, authorization, logging, telemetry, perf tests etc.)
+- All cross-cutting concerns are omitted (authentication, authorization, logging, telemetry, perf tests etc.)
 
 ## Custom content type caveat
-Since the requirement is to use base64 encoded JSON and `application/custom` Content-Type, the endpoint returns 400 unsupported media type in case the data in body is not base64 formatted JSON with specific format. The custom media type format is implemented in `CustomFormatter.cs`. Because the conversion is provided by the formatter which is set as attribute on the actions, the controller unit tests are different than actual data sent from the HTTP client (raw vs formatted).
+Since the requirement is to use base64 encoded JSON and `application/custom` Content-Type, the endpoint returns 400 unsupported media type in case the data in body is not base64 formatted JSON with specific format. The custom media type format is implemented in `CustomFormatter.cs`. Because the conversion is provided by the formatter which is set as attribute on the actions, the controller unit tests are different than actual data sent from the HTTP client (raw JSON vs encoded JSON).
