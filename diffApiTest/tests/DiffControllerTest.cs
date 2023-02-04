@@ -32,6 +32,32 @@ public class DiffControllerTest
     }
 
     [TestMethod]
+    public void LeftValueIsStored()
+    {
+        var diffServiceMock = new Mock<IDiffService>();
+        diffServiceMock.Setup(r => r.StoreInputData(It.IsAny<InputRecord>()));
+
+        var diffController = new DiffController(diffServiceMock.Object);
+        var response = diffController.Left("1", new Input("TEST"));
+
+        diffServiceMock.Verify(d => d.StoreInputData(It.Is<InputRecord>(r => 
+            r.id == "1" && r.side == Side.Left && r.input == "TEST")));
+    }
+
+    [TestMethod]
+    public void RightValueIsStored()
+    {
+        var diffServiceMock = new Mock<IDiffService>();
+        diffServiceMock.Setup(r => r.StoreInputData(It.IsAny<InputRecord>()));
+
+        var diffController = new DiffController(diffServiceMock.Object);
+        var response = diffController.Right("1", new Input("TEST"));
+
+        diffServiceMock.Verify(d => d.StoreInputData(It.Is<InputRecord>(r => 
+            r.id == "1" && r.side == Side.Right && r.input == "TEST")));
+    }
+
+    [TestMethod]
     public void ReturnsBadRequestIfBase64OrJsonAreNotInTheCorrectFormat()
     {
         var diffServiceMock = new Mock<IDiffService>();

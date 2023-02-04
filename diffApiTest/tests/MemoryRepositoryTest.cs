@@ -38,7 +38,7 @@ public class MemoryRepositoryTest
     }   
 
     [TestMethod]
-    public void ValueForDifferentIdIsStored()
+    public void ValueForDifferentIdIsStoredWithoutConflict()
     {
         var memoryRepository = new MemoryRepository();
         var inputRecord = new InputRecord("1", Side.Left, "test-input");
