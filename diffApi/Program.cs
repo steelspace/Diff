@@ -19,6 +19,11 @@ builder.Services.AddApiVersioning(opt =>
                                                                                         new MediaTypeApiVersionReader("x-api-version"));
                                     });
 
+builder.Services.AddControllers(options =>
+{
+    options.InputFormatters.Insert(0, new CustomFormatter());
+});
+
 // data persistence
 builder.Services.AddSingleton<IRepository, MemoryRepository>();
 builder.Services.AddSingleton<IDiffService, DiffService>();

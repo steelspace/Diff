@@ -16,11 +16,8 @@ public class DiffController : ControllerBase
     [HttpGet]
     [Route("{id}")]
     [MapToApiVersion("1.0")]
-    [ResponseCache(Location = ResponseCacheLocation.Any, Duration = 3600)]
     public IActionResult Diff(string id)
     {
-        // added cache control - because of immutability this resource is constant
-
         var diffResult = diffService.GetDiff(id);
 
         if (diffResult is null)
@@ -34,13 +31,19 @@ public class DiffController : ControllerBase
     [HttpPost]
     [Route("{id}/left")]
     [MapToApiVersion("1.0")]
+    [Consumes("application/custom")]
     public IActionResult Left(string id, [FromBody]Input input)
     {
         try
         {
-            var inputRecord = new InputRecord(id, input.input);
-            diffService.StoreInputData(Side.Left, inputRecord);
+            diffService.StoreInputData(new InputRecord(id, Side.Left, input.input));
             return Ok();
+        }
+
+        // when called from actual web server, the format is already handled in CustomFormatter for "application/custom"
+        catch (Base64JsonFormatException)
+        {
+            return BadRequest();
         }
 
         catch (DuplicateInputException)
@@ -52,13 +55,19 @@ public class DiffController : ControllerBase
     [HttpPost]
     [Route("{id}/right")]
     [MapToApiVersion("1.0")]
+    [Consumes("application/custom")]
     public IActionResult Right(string id, [FromBody]Input input)
     {
         try
         {
-            var inputRecord = new InputRecord(id, input.input);
-            diffService.StoreInputData(Side.Right, inputRecord);
+            diffService.StoreInputData(new InputRecord(id, Side.Right, input.input));
             return Ok();
+        }
+
+        // when called from actual web server, the format is already handled in CustomFormatter for "application/custom"
+        catch (Base64JsonFormatException)
+        {
+            return BadRequest();
         }
 
         catch (DuplicateInputException)

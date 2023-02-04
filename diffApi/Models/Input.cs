@@ -1,1 +1,1 @@
-public record Input (string input);
+public record Input(string input);

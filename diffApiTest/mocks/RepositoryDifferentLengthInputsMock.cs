@@ -4,13 +4,13 @@ public class RepositoryDifferentLengthInputsMock : IRepository
     {
         if (side == Side.Left)
         {
-            return new InputRecord(id, "TEST-INPUT");
+            return new InputRecord(id, Side.Left, "TEST-INPUT");
         }
 
-        return new InputRecord(id, "LONGER-TEST-INPUT");
+        return new InputRecord(id, Side.Right, "LONGER-TEST-INPUT");
     }
 
-    public void StoreInput(Side side, InputRecord inputRecord)
+    public void StoreInput(InputRecord inputRecord)
     {
         throw new NotImplementedException();
     }

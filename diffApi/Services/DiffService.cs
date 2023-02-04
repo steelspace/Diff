@@ -31,11 +31,11 @@ public class DiffService : IDiffService
         return new DiffResult(id, string.Empty, diffs);
     }
 
-    public void StoreInputData(Side side, InputRecord inputRecord)
+    public void StoreInputData(InputRecord inputRecord)
     {
         try
         {
-            repository.StoreInput(side, inputRecord);
+            repository.StoreInput(inputRecord);
         }
 
         catch (ArgumentException)

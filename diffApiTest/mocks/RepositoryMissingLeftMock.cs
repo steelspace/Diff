@@ -7,10 +7,10 @@ public class RepositoryMissingLeftMock : IRepository
             return null;
         }
 
-        return new InputRecord(id, "TEST-INPUT");
+        return new InputRecord(id, Side.Right, "TEST-INPUT");
     }
 
-    public void StoreInput(Side side, InputRecord inputRecord)
+    public void StoreInput(InputRecord inputRecord)
     {
         throw new NotImplementedException();
     }

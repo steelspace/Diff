@@ -1,1 +1,1 @@
-public record InputRecord (string id, string input);
+public record InputRecord (string id, Side side, string input);

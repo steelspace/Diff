@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "diffApi", "diffApi\diffApi.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "diffApiTest", "diffApiTest\diffApiTest.csproj", "{D630B09C-CE4F-486B-BFDB-23A0CAB62330}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "diffApiIntegrationTest", "diffApiIntegrationTest\diffApiIntegrationTest.csproj", "{3453AAC4-697C-43B1-8F41-A4ECEBD7B227}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{D630B09C-CE4F-486B-BFDB-23A0CAB62330}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D630B09C-CE4F-486B-BFDB-23A0CAB62330}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D630B09C-CE4F-486B-BFDB-23A0CAB62330}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3453AAC4-697C-43B1-8F41-A4ECEBD7B227}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3453AAC4-697C-43B1-8F41-A4ECEBD7B227}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3453AAC4-697C-43B1-8F41-A4ECEBD7B227}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3453AAC4-697C-43B1-8F41-A4ECEBD7B227}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

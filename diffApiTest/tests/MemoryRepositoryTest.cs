@@ -12,13 +12,13 @@ public class MemoryRepositoryTest
         var side = (Side)s;
 
         var memoryRepository = new MemoryRepository();
-        var inputRecord = new InputRecord("1", "test-input");
+        var inputRecord = new InputRecord("1", side, "test-input");
         
-        memoryRepository.StoreInput(side, inputRecord);
+        memoryRepository.StoreInput(inputRecord);
 
         var savedInputRecord = memoryRepository.LoadInput(side, "1");
 
-        var expectedRecord = new InputRecord("1", "test-input");
+        var expectedRecord = new InputRecord("1", side, "test-input");
         Assert.AreEqual(expectedRecord, savedInputRecord);
     }
 
@@ -31,9 +31,9 @@ public class MemoryRepositoryTest
         var side = (Side)s;
         
         var memoryRepository = new MemoryRepository();
-        var inputRecord = new InputRecord("1", "test-input");
+        var inputRecord = new InputRecord("1", Side.Left, "test-input");
         
-        memoryRepository.StoreInput(side, inputRecord);
-        memoryRepository.StoreInput(side, inputRecord);
+        memoryRepository.StoreInput(inputRecord);
+        memoryRepository.StoreInput(inputRecord);
     }    
 }

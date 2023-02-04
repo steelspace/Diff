@@ -15,13 +15,13 @@ public class DiffServiceTest
 
         var repositoryMock = new Mock<IRepository>();
         repositoryMock.Setup(r => r.LoadInput(It.IsAny<Side>(), It.IsAny<string>()))
-            .Returns(new InputRecord("1", "TEST-INPUT"));
+            .Returns(new InputRecord("1", Side.Left, "TEST-INPUT"));
 
         var diffService = new DiffService(repositoryMock.Object);
-        var inputRecord = new InputRecord("1", "test-input");
+        var inputRecord = new InputRecord("1", Side.Left, "test-input");
         
         // return is void, so testing just for possible sideeffects
-        diffService.StoreInputData(side, inputRecord);
+        diffService.StoreInputData(inputRecord);
     }
 
     [TestMethod]
@@ -33,13 +33,13 @@ public class DiffServiceTest
         var side = (Side)s;
         
         var repositoryMock = new Mock<IRepository>();
-        repositoryMock.Setup(r => r.StoreInput(It.IsAny<Side>(), It.IsAny<InputRecord>()))
+        repositoryMock.Setup(r => r.StoreInput(It.IsAny<InputRecord>()))
         .Throws(new ArgumentException());
 
         var diffService = new DiffService(repositoryMock.Object);
-        var inputRecord = new InputRecord("1", "test-input");
+        var inputRecord = new InputRecord("1", Side.Left, "test-input");
         
-        diffService.StoreInputData(side, inputRecord);
+        diffService.StoreInputData(inputRecord);
     }
 
     [TestMethod]
@@ -67,7 +67,7 @@ public class DiffServiceTest
     {
         var repositoryMock = new Mock<IRepository>();
         repositoryMock.Setup(r => r.LoadInput(It.IsAny<Side>(), It.IsAny<string>()))
-            .Returns(new InputRecord("1", "TEST-INPUT"));
+            .Returns(new InputRecord("1", Side.Left, "TEST-INPUT"));
 
         var diffService = new DiffService(repositoryMock.Object);
         

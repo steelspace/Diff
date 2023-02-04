@@ -7,9 +7,9 @@ public class MemoryRepository : IRepository
         return $"{side}/id";
     }
 
-    public void StoreInput(Side side, InputRecord inputRecord)
+    public void StoreInput(InputRecord inputRecord)
     {
-        var key = GetKey(side, inputRecord.id);
+        var key = GetKey(inputRecord.side, inputRecord.id);
 
         lock (inputs)
         {
@@ -26,6 +26,6 @@ public class MemoryRepository : IRepository
             return null;
         }
 
-        return new InputRecord(id, input);       
+        return new InputRecord(id, side, input);       
     }
 }
