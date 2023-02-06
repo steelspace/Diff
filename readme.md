@@ -59,7 +59,7 @@ I decided to output all found differences with offsets and diffed characters so 
 ## Unit Tests
 1. I prefer unit tests to be verbose and de-normalized, so they can be read as a use-case description without referring to various utility functions
 2. `[DataRow()]` attribute has a bug that doesn't where it doesn't support enum values, the solution would be use more sophisticated test framework such as *xUnit*
-3. Test coverage should be implemented to meet 100% coverage
+3. Test coverage metric should be implemented to meet 100% coverage
 
 ## Integration Tests
 There is an integration test in `diffApiIntegrationTest`. It requires the web api to be running.
