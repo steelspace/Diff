@@ -37,7 +37,9 @@ public class DiffController : ControllerBase
         try
         {
             diffService.StoreInputData(new InputRecord(id, Side.Left, input.input));
-            return Ok();
+
+            // not exactly correct, but since there is not GET for the resource, I return /diff url
+            return Created($"/v1/diff/{id}", null);
         }
 
         // when called from actual web server, the format is already handled in CustomFormatter for "application/custom"
@@ -61,7 +63,9 @@ public class DiffController : ControllerBase
         try
         {
             diffService.StoreInputData(new InputRecord(id, Side.Right, input.input));
-            return Ok();
+
+            // not exactly correct, but since there is not GET for the resource, I return /diff url
+            return Created($"/v1/diff/{id}", null);
         }
 
         // when called from actual web server, the format is already handled in CustomFormatter for "application/custom"

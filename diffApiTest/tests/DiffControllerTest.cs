@@ -40,6 +40,11 @@ public class DiffControllerTest
         var diffController = new DiffController(diffServiceMock.Object);
         var response = diffController.Left("1", new Input("TEST"));
 
+        Assert.IsNotNull(response);
+        Assert.IsInstanceOfType(response, typeof(CreatedResult));
+        var result = (CreatedResult)response;
+        Assert.AreEqual("/v1/diff/1", result.Location);
+
         diffServiceMock.Verify(d => d.StoreInputData(It.Is<InputRecord>(r => 
             r.id == "1" && r.side == Side.Left && r.input == "TEST")));
     }
@@ -52,6 +57,11 @@ public class DiffControllerTest
 
         var diffController = new DiffController(diffServiceMock.Object);
         var response = diffController.Right("1", new Input("TEST"));
+
+        Assert.IsNotNull(response);
+        Assert.IsInstanceOfType(response, typeof(CreatedResult));
+        var result = (CreatedResult)response;
+        Assert.AreEqual("/v1/diff/1", result.Location);
 
         diffServiceMock.Verify(d => d.StoreInputData(It.Is<InputRecord>(r => 
             r.id == "1" && r.side == Side.Right && r.input == "TEST")));
